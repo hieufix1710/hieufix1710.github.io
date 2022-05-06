@@ -104,11 +104,11 @@ const Test = () => {
                   </Tooltip>
                 </Button>
               </div>
-              <Spacer y={0.5} />
+              {/* <Spacer y={0.5} />
               <span>
                 <strong>{info?.name}</strong>
-              </span>
-              <Spacer y={0.3} />
+              </span> */}
+              <Spacer y={0.5} />
               <div
                 style={{
                   color: "rgba(var(--f52,142,142,142),1)",
