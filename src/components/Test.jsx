@@ -15,25 +15,27 @@ import { Octokit } from "octokit";
 const Test = () => {
   const [info, setInfo] = useState(null);
 
-
   useEffect(() => {
-    const octokit = new Octokit({auth: ''});
+    const octokit = new Octokit({ auth: "" });
     const fetchUser = async () => {
-      const res = await octokit.request(`GET /users/hieufix1710`, {
-        headers: {
-          Accept: "application/json"
-        },
-    
-      });
-      
-      if (res?.data) {
-        setInfo(res.data);
+      try {
+        const res = await octokit.request(`GET /users/hieufix1710`, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (res?.data) {
+          setInfo(res.data);
+        }
+      } catch (e) {
+        console.log(e);
       }
-    }
+    };
 
     return () => fetchUser();
-
-  }, [])
+  }, []);
 
   return (
     <Grid.Container
@@ -85,7 +87,9 @@ const Test = () => {
                   margin: 1,
                 }}
               >
-                <Text h2 css={{m: 0}}>{info?.name}</Text>
+                <Text h2 css={{ m: 0 }}>
+                  {info?.name}
+                </Text>
                 <Button
                   auto
                   bordered
@@ -93,7 +97,7 @@ const Test = () => {
                   color="secondary"
                   css={{ ml: 20 }}
                 >
-                  <Tooltip content={'Contact to me :3'}>
+                  <Tooltip content={"Contact to me :3"}>
                     <Text
                       css={{ color: "inherit" }}
                       size={12}
@@ -119,19 +123,11 @@ const Test = () => {
               </div>
               <Spacer y={0.3} />
               <div>
-                <strong href={info?.blog}>
-                  {
-                    info?.company
-                  }
-                </strong>
+                <strong href={info?.blog}>{info?.company}</strong>
               </div>
               <Spacer y={0.3} />
               <div>
-                <a href={info?.blog}>
-                  {
-                    info?.blog
-                  }
-                </a>
+                <a href={info?.blog}>{info?.blog}</a>
               </div>
             </div>
           </div>
