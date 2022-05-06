@@ -17,9 +17,14 @@ const Test = () => {
 
 
   useEffect(() => {
-    const octokit = new Octokit({auth: process.env.REACT_APP_PERSONAL_TOKEN});
+    const octokit = new Octokit({auth: ''});
     const fetchUser = async () => {
-      const res = await octokit.request(`GET /users/hieufix1710`);
+      const res = await octokit.request(`GET /users/hieufix1710`, {
+        headers: {
+          Accept: "application/json"
+        },
+    
+      });
       
       if (res?.data) {
         setInfo(res.data);
