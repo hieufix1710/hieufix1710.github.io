@@ -27,7 +27,7 @@ export const UserTwitterCard = ({
         <Col span={3}>
           <Avatar
             size="lg"
-            src={info?.avatar}
+            src={info?.avatar_url}
             color="gradient"
             bordered
             // squared
@@ -76,7 +76,7 @@ export const UserTwitterCard = ({
             css={{ mt: "$1" }}
             color="#888888"
           >
-            {info?.description} 🎉
+            {info?.bio} 🎉
           </Text>
         </Grid>
       </Grid.Container>

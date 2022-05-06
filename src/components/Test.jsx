@@ -1,16 +1,34 @@
-import React, { useState } from "react";
-import { Card, Grid, Text, Avatar, Tooltip, Button, Spacer } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import {
+  Card,
+  Grid,
+  Text,
+  Avatar,
+  Tooltip,
+  Button,
+  Spacer,
+} from "@nextui-org/react";
 import { Link } from "@nextui-org/react";
 import { UserTwitterCard } from "./UserTwitterCard";
+import { Octokit } from "octokit";
 
 const Test = () => {
-  const [info, setInfo] = useState({
-    avatar: "https://avatars.githubusercontent.com/u/64394298?v=4",
-    fullName: "Hiu Nguyen",
-    username: "@_hiu.1710",
-    description:
-      "Don’t run away from your mistakes. Fix them, learn from them and understand what you need to do so that you never repeat them.",
-  });
+  const [info, setInfo] = useState(null);
+
+
+  useEffect(() => {
+    const octokit = new Octokit({auth: process.env.REACT_APP_PERSONAL_TOKEN});
+    const fetchUser = async () => {
+      const res = await octokit.request(`GET /users/hieufix1710`);
+      
+      if (res?.data) {
+        setInfo(res.data);
+      }
+    }
+
+    return () => fetchUser();
+
+  }, [])
 
   return (
     <Grid.Container
@@ -41,7 +59,7 @@ const Test = () => {
               <Avatar
                 css={{ size: "$40" }}
                 zoomed
-                src={info?.avatar}
+                src={info?.avatar_url}
                 color="gradient"
                 bordered
               />
@@ -62,29 +80,31 @@ const Test = () => {
                   margin: 1,
                 }}
               >
-                <h2
-                  style={{
-                    margin: 0,
-                  }}
+                <Text h2 css={{m: 0}}>{info?.name}</Text>
+                <Button
+                  auto
+                  bordered
+                  rounded
+                  color="secondary"
+                  css={{ ml: 20 }}
                 >
-                  _hiu.1710
-                </h2>
-                <Button  auto bordered rounded color="secondary" css={{ ml: 20 }}>
-                  <Text
-                    css={{ color: "inherit" }}
-                    size={12}
-                    weight="bold"
-                    transform="uppercase"
-                  >
-                    Notify Me
-                  </Text>
+                  <Tooltip content={'Contact to me :3'}>
+                    <Text
+                      css={{ color: "inherit" }}
+                      size={12}
+                      weight="bold"
+                      transform="uppercase"
+                    >
+                      Notify Me
+                    </Text>
+                  </Tooltip>
                 </Button>
               </div>
               <Spacer y={0.5} />
               <span>
                 <strong>Hieu Nguyen</strong>
               </span>
-              <Spacer y={0.3}/>
+              <Spacer y={0.3} />
               <div
                 style={{
                   color: "rgba(var(--f52,142,142,142),1)",
@@ -92,9 +112,21 @@ const Test = () => {
               >
                 Software Developer
               </div>
-              <Spacer y={0.3}/>
+              <Spacer y={0.3} />
               <div>
-                <a href="https://www.facebook.com/hiu.1710/">https://www.facebook.com/hiu.1710/</a>
+                <strong href={info?.blog}>
+                  {
+                    info?.company
+                  }
+                </strong>
+              </div>
+              <Spacer y={0.3} />
+              <div>
+                <a href={info?.blog}>
+                  {
+                    info?.blog
+                  }
+                </a>
               </div>
             </div>
           </div>
@@ -102,7 +134,7 @@ const Test = () => {
             <Link
               color="primary"
               target="_blank"
-              href="https://github.com/hieufix1710"
+              href={`https://github.com/${info?.login}`}
             >
               Visit my profile on GitHub.
             </Link>
