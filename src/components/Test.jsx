@@ -17,25 +17,20 @@ const Test = () => {
 
   useEffect(() => {
     const octokit = new Octokit({ auth: "" });
-    const fetchUser = async () => {
-      try {
-        const res = await octokit.request(`GET /users/hieufix1710`, {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (res?.data) {
-          setInfo(res.data);
-        }
-      } catch (e) {
-        console.log(e);
+    
+    async function getGithubUsers() {
+      const result = await octokit.request("GET /users/hieufix1710");
+      if (result?.data) {
+        setInfo(result.data);
       }
-    };
+    }
 
-    return () => fetchUser();
+    getGithubUsers()
   }, []);
+
+
+
+  
 
   return (
     <Grid.Container
@@ -111,7 +106,7 @@ const Test = () => {
               </div>
               <Spacer y={0.5} />
               <span>
-                <strong>Hieu Nguyen</strong>
+                <strong>{info?.name}</strong>
               </span>
               <Spacer y={0.3} />
               <div
