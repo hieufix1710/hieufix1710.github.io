@@ -120,7 +120,7 @@ const Home = ({ theme }) => {
                         {info?.name}
                       </Text>
                     )}
-                    <Link href="tel:+84773392943">
+                    <Link href="/">
                       <Button
                         auto
                         bordered
@@ -162,20 +162,8 @@ const Home = ({ theme }) => {
                     <a href={info?.blog}>{info?.blog}</a>
                   </div>
                 </Grid>
-              ) : (
-                <div
-                  style={{
-                    width: "50%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    textAlign: "center",
-                  }}
-                >
-                  <span>Can't load this profile</span>
-                </div>
-              )}
+              ) : ''
+              }
             </div>
           </Card.Body>
 
