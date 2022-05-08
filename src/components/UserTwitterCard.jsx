@@ -15,7 +15,7 @@ export const UserTwitterCard = ({
     <Grid.Container
       className="user-twitter-card__container"
       css={{
-        mw: "280px",
+        mw: "260px",
         borderRadius: "$lg",
         padding: "$sm",
         ...css
@@ -38,7 +38,7 @@ export const UserTwitterCard = ({
           <Row>
             <Grid xs={12} direction="column">
               <Text className="user-twitter-card__text" b size={15} style={{marginBottom: 6}}>
-                {info?.fullName}
+                {info?.name}
               </Text>
               <Text
                 className="user-twitter-card__text"
@@ -46,7 +46,7 @@ export const UserTwitterCard = ({
                 css={{ mt: "-$3" }}
                 color="#888888"
               >
-                {info?.username}
+                {info?.twitter_username}
               </Text>
             </Grid>
             <Button
@@ -68,6 +68,7 @@ export const UserTwitterCard = ({
           </Row>
         </Col>
       </Row>
+      <Spacer y={0.3} />
       <Grid.Container className="user-twitter-card__username-container">
         <Grid xs={12}>
           <Text
@@ -76,11 +77,11 @@ export const UserTwitterCard = ({
             css={{ mt: "$1" }}
             color="#888888"
           >
-            {info?.bio} 🎉
+            {`${info?.bio} 🎉`} 
           </Text>
         </Grid>
       </Grid.Container>
-
+      <Spacer y={0.5} />
       <Grid.Container
         className="user-twitter-card__metrics-container"
         justify="flex-start"
@@ -93,7 +94,9 @@ export const UserTwitterCard = ({
             className="user-twitter-card__text"
             size={14}
           >
-            4
+            {
+              info?.following
+            }
           </Text>
           &nbsp;Following
         </Text>
@@ -105,7 +108,7 @@ export const UserTwitterCard = ({
             className="user-twitter-card__text"
             size={14}
           >
-            97.1K
+            {info?.followers}
           </Text>
           &nbsp;Followers
         </Text>
