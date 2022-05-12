@@ -20,8 +20,8 @@ const Home = ({ theme }) => {
     const octokit = new Octokit({ auth: "" });
 
     async function getGithubUsers() {
-      const result = await octokit.request(`GET /users/${'hieufix1710'}`);
-      if (result?.data ) {
+      const result = await octokit.request(`GET /users/${"hieufix1710"}`);
+      if (result?.data) {
         setInfo(result.data);
       }
     }
@@ -31,9 +31,9 @@ const Home = ({ theme }) => {
 
   useEffect(() => {
     if (info) {
-      document.title = `${info?.name}`
+      document.title = `${info?.name}`;
     }
-  }, [info])
+  }, [info]);
 
   return (
     <Grid.Container
@@ -43,7 +43,7 @@ const Home = ({ theme }) => {
         marginTop: isMd ? 0 : "8%",
       }}
     >
-      <Grid xs={12} sm={8} md={7} lg={6} xl={6}>
+      <Grid xs={12} sm={8} md={7} lg={6} xl={5}>
         <Card
           hoverable
           style={{
@@ -58,16 +58,20 @@ const Home = ({ theme }) => {
               position: isMd ? "" : "relative",
             }}
           >
-            <Card.Image
-              crossOrigin="anonymous"
-              src={"/github.logo.png"}
-              height="200px"
-              width="100%"
-              alt="Card background"
-              style={{
-                opacity: 0.1,
-              }}
-            />
+            {isMd ? (
+              ""
+            ) : (
+              <Card.Image
+                crossOrigin="anonymous"
+                src={"/github.logo.png"}
+                height="200px"
+                width="100%"
+                alt="Card background"
+                style={{
+                  opacity: 0.1,
+                }}
+              />
+            )}
             <div
               style={{
                 width: isMd ? "97%" : "",
@@ -145,6 +149,7 @@ const Home = ({ theme }) => {
                   <div
                     style={{
                       color: "rgba(var(--f52,142,142,142),1)",
+                      backgroundImage: `url("/github.logo.png")`
                     }}
                   >
                     {info ? "Software Developer" : ""}
@@ -162,8 +167,9 @@ const Home = ({ theme }) => {
                     <a href={info?.blog}>{info?.blog}</a>
                   </div>
                 </Grid>
-              ) : ''
-              }
+              ) : (
+                ""
+              )}
             </div>
           </Card.Body>
 
