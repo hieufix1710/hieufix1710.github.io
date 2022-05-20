@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.nextui-c-bVLlAJ {
+  border-radius: 0 !important;
+}
