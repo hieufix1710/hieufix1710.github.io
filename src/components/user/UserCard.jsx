@@ -23,7 +23,7 @@ const UserCard = ({info}) => {
   }, [info]);
 
   return (
-    <Grid xs={12} sm={8} md={7} lg={6} xl={5}>
+    <Grid xs={12} sm={8} md={7} lg={6} xl={5} css={{marginTop: 100}}>
         <Card
           hoverable
           style={{

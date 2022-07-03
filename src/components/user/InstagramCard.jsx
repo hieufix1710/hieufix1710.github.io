@@ -1,5 +1,5 @@
-import React, {useRef, useState} from 'react'
-import HeaderCardAvatar from './HeaderCardAvatar';
+import React, { useRef, useState } from "react";
+import HeaderCardAvatar from "./HeaderCardAvatar";
 import { Divider, Card, Input, Avatar, Grid } from "@nextui-org/react";
 import BodyCardFeed from "./BodyCardFeed";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,30 +8,29 @@ import {
   faPaperPlane,
 } from "@fortawesome/free-regular-svg-icons";
 
-const InstagramCard = ({data}) => {
-
+const InstagramCard = ({ data }) => {
   const [comments, setComments] = useState([
     {
-      author: "an1002",
+      author: "huy.duong101",
       content: "Nice bro :>",
     },
     {
-      author: "huy002",
+      author: "anleee210",
       content: "Have good day",
-    },
-    {
-      author: "teo1002",
-      content: "Good !!!",
     },
   ]);
 
-  const comment = useRef('');
+  const comment = useRef("");
 
   const postComment = () => {
-    setComments([...comments, {author: 'hei3000', content: comment.current.value}]);
-    comment.current.value = '';
-  }
+    if (comment.current.value.trim().length === 0) return;
 
+    setComments([
+      ...comments,
+      { author: "guest", content: comment.current.value },
+    ]);
+    comment.current.value = "";
+  };
 
   return (
     <Card
@@ -49,33 +48,51 @@ const InstagramCard = ({data}) => {
         <HeaderCardAvatar info={data} />
       </Card.Header>
       <Divider />
-      <Card.Body css={{ borderRadius: '0px !important' }}>
-        <Card.Image
-          src={data?.avatar_url}
-          width="100%"
-          height="auto"
-          alt={`${data?.name} image`}
-          autoResize={true}
-          css={{borderRadius: '0px !important', border: 0}}
-          showSkeleton={true}
-        />
+      <Card.Body css={{ borderRadius: "0px !important" }}>
+        {data?.url ? (
+          <Card.Image
+            src={data?.avatar_url || "/github.logo.png"}
+            width="100%"
+            height="auto"
+            alt={`${data?.name} image`}
+            autoResize={true}
+            css={{ borderRadius: "0px !important", border: 0, maxHeight: 400 }}
+            showSkeleton
+          />
+        ) : (
+          <Card.Image
+            src={"/github.logo.png"}
+            width="100%"
+            height="auto"
+            alt={`Avatar image`}
+            autoResize={true}
+            css={{ borderRadius: "0px !important", border: 0 }}
+            showSkeleton
+          />
+        )}
         <BodyCardFeed info={data} comments={comments} />
       </Card.Body>
       <Divider />
       <Card.Footer>
-        <Grid.Container style={{
+        <Grid.Container
+          style={{
             display: "flex",
             alignItems: "center",
-          }}>
-          <Grid xs={2} sm={2} style={{
+          }}
+        >
+          <Grid
+            xs={2}
+            sm={2}
+            style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-            }}>
-          <FontAwesomeIcon icon={faFaceLaughSquint} size="xl" />
+            }}
+          >
+            <FontAwesomeIcon icon={faFaceLaughSquint} size="xl" />
           </Grid>
           <Grid lg={8} xl={8} md={8} xs={8}>
-          <Input
+            <Input
               size="lg"
               aria-label="input"
               placeholder="Type you comment"
@@ -83,21 +100,28 @@ const InstagramCard = ({data}) => {
               clearable
               ref={comment}
               onKeyUp={(e) => {
-                if (e.key === 'ENTER') postComment();
+                if (e.key === "Enter") postComment();
               }}
             />
           </Grid>
-          <Grid xs={2} sm={2} style={{
+          <Grid
+            xs={2}
+            sm={2}
+            style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-            }}>
-          <Avatar icon={<FontAwesomeIcon icon={faPaperPlane} size="lg" />} onClick={() => postComment()} />
+            }}
+          >
+            <Avatar
+              icon={<FontAwesomeIcon icon={faPaperPlane} size="lg" />}
+              onClick={() => postComment()}
+            />
           </Grid>
         </Grid.Container>
       </Card.Footer>
     </Card>
-  )
-}
+  );
+};
 
-export default InstagramCard
+export default InstagramCard;

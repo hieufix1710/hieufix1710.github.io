@@ -32,7 +32,7 @@ const Home = ({ theme }) => {
       gap={2}
       justify="center"
       style={{
-        marginTop: isMd ? 0 : "2%",
+        marginTop: isMd ? 1 : 1,
       }}
     >
       <Grid xs={12} lg={4} xl={4} md={4}>
